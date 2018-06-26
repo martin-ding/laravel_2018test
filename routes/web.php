@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes();
+
+Route::resource("posts","PostController");
+Route::patch("posts/{post}/comments","CommentController@store");
