@@ -21,6 +21,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use App\Mail\Welcome;
 
     /**
      * Where to redirect users after registration.
@@ -67,5 +68,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        \Mail::to($user)->send(new Welcome());
     }
 }

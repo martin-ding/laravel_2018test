@@ -11,7 +11,21 @@
 |
 */
 
+// App::singleton("App\Billing\Strips",function(){
+//     return new App\Billing\Strips(config("services.stripe.secret"));
+// });
+
+// $stripe = resolve("App\Billing\Strips");
+// dd($stripe);
+
 Auth::routes();
+
+Route::get("/",function(){
+    return view("welcome");
+});
 
 Route::resource("posts","PostController");
 Route::patch("posts/{post}/comments","CommentController@store");
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

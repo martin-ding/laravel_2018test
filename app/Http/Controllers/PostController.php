@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Post;
+use \Carbon\Carbon;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        // $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,27 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
+        // $posts = Post::latest();
+
+        // if ($month = request("month"))
+        // {
+        //     $posts->whereMonth("created_at","=",Carbon::parse($month)->month);
+        // }
+
+        // if ($year = request("year"))
+        // {
+        //     $posts->whereYear("created_at","=",$year);
+        // }
+
+        /*也可以像下面这样做 要在Post Model中创建一个scopeFilter  方法
+            这个filter  可以使用任何代替
+        */
+
+        $posts = Post::latest()->filter(request(['year','month']))->get();
+
+        // $posts = $posts->get();
+        // $published = Post::selectRaw("year(`created_at`) as year, monthname(`created_at`) as month ,count(*) as published")->groupBy("month","year")->orderByRaw("min(created_at)")->get()->toArray();
+        // dd($published);
         return view("posts.index", compact("posts"));
     }
 
