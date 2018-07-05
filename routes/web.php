@@ -29,3 +29,4 @@ Route::patch("posts/{post}/comments","CommentController@store");
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/reflect', 'ReflectionController@test');
